@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\component as ModelsComponent;
 use App\Models\componentData;
+use App\Models\invitation;
 use Livewire\Component;
 
 class HeaderSection extends Component
@@ -11,6 +12,7 @@ class HeaderSection extends Component
     public $title;
     public $body;
     public $isEditing = true;
+    
     
 
     public function mount()
@@ -34,13 +36,15 @@ class HeaderSection extends Component
         $this->saveComponentData();
     }
 
-    public function saveComponentData($invitationId)
+    public function saveComponentData()
     {
         $component = ModelsComponent::firstOrCreate([
-            'nombre' => 'Encabezado', 
+            'nombre' => 'header-section', 
             'model_type' => 'App\Http\Livewire\HeaderSection', // Asegúrate de ajustar la ruta correcta
         ]);
-
+        //se buscara la ultima invitacion creada por el usuario
+        $invitation = Invitation::where('user_id', auth()->id())->latest()->first();
+        $invitationId = $invitation->id;
         $this->componentData = [
             'title' => $this->title,
             'body' => $this->body,

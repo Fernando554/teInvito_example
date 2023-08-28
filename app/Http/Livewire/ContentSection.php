@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\component as ModelsComponent;
 use App\Models\componentData;
+use App\Models\invitation;
 
 class ContentSection extends Component
 {
@@ -76,14 +77,15 @@ class ContentSection extends Component
         $this->saveComponentData();
     }
 
-    public function saveComponentData($invitationId)
+    public function saveComponentData()
     {
             // Guarda el componente o recupéralo si ya existe
         $component = ModelsComponent::firstOrCreate([
-            'nombre' => 'Content', // Ajusta el nombre de tu componente
+            'nombre' => 'content-section', // Ajusta el nombre de tu componente
             'model_type' => 'App\Http\Livewire\ContentSection', // Ajusta la ruta de tu componente
         ]);
-
+        $invitation  = invitation::where('user_id', auth()->id())->latest()->first();
+        $invitationId = $invitation->id;
         ComponentData::create([
             'key' => 'title', // Clave para el título
             'value' => $this->title, // Guarda el título

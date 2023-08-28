@@ -45,12 +45,9 @@ class PageBuilder extends Component
     
         foreach ($this->selectedComponents as $index => $componentData) {
             $componentName = $componentData['component'];
-    
             $componentRecord = ModelsComponent::where('nombre', $componentName)->first();
-            dd($componentRecord);
             if ($componentRecord) {
                 $componentClassName = $componentRecord->model_type;
-                dd($componentClassName);
     
                 $componentInstance = new $componentClassName();
     
@@ -61,8 +58,6 @@ class PageBuilder extends Component
                     'component_id' => $componentRecord->id, // Utiliza el ID del registro
                     'order' => $order,
                 ]);
-                // 9. Llama al método 'saveComponentData' en la instancia del componente
-                $componentInstance->saveComponentData($invitation->id);
             }
         }
     

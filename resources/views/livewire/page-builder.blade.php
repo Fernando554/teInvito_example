@@ -5,6 +5,9 @@
             <li wire:click="addComponent('{{ $component }}')">{{ $label }}</li>
         @endforeach
     </ul>
+    @if(count($selectedComponents) >= 5)
+        <p>Has alcanzado el máximo de 5 componentes.</p>
+    @endif
     <div>
         @foreach($selectedComponents as $index => $componentData)
             @livewire($componentData['component'], ['props' => $componentData['props']], key($index))

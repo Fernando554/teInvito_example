@@ -27,8 +27,11 @@ class PageBuilder extends Component
 
     public function addComponent($component)
     {
-        $this->selectedComponents[] = ['component' => $component, 'props' => []];
+        if (count($this->selectedComponents) < 5) {
+            $this->selectedComponents[] = ['component' => $component, 'props' => []];
+        }
     }
+
 
     public function updateComponent($index, $props)
     {

@@ -35,9 +35,7 @@ class PageBuilder extends Component
 
     public function updateComponent($index, $props)
     {
-        dd($index, $props);
         $this->selectedComponents[$index]['props'] = $props;
-        dd($this->selectedComponents);
     }
     
     public function save()
@@ -65,6 +63,12 @@ class PageBuilder extends Component
         }
     
         return back();
+    }
+
+    //remover el ultimo componente que se agrego
+    public function removeComponent($index)
+    {
+        unset($this->selectedComponents[$index]);
     }
     
 }

@@ -54,13 +54,7 @@
             </div>
         </div>
         <div class="text-md-center mt-2">
-            <button wire:click="toggleEditing" class="btn btn-primary">
-                @if ($editing)
-                    Terminar Edición
-                @else
-                    Editar
-                @endif
-            </button>
+            <button wire:click="saveChanges" class="btn btn-primary">Guardar</button>
         </div>
     </div>
 </footer>

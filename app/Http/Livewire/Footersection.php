@@ -4,6 +4,9 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Models\component as ModelsComponent;
+use App\Models\componentData;
+use App\Models\invitation;
 
 class Footersection extends Component
 {
@@ -20,58 +23,29 @@ class Footersection extends Component
     public $editing = true;
     public $newImage;
 
+
+    public function mount()
+    {
+        $this->title1 = "Título 1";
+        $this->title2 = "Título 2";
+        $this->buttonText = "Suscríbete";
+        $this->imageSrc = "https://picsum.photos/200/300";
+        $this->text = "Texto descriptivo.";
+        $this->days = '00';
+        $this->hours = '00';
+        $this->minutes = '00';
+        $this->seconds = '00';
+        $this->editing = true;
+    }
+
     public function render()
     {
         return view('livewire.footersection');
-    }
-    public function toggleEditing()
-    {
-        $this->editing = !$this->editing;
-    }
-
-    public function updateTitle1($newTitle)
-    {
-        $this->title1 = $newTitle;
-    }
-
-    public function updateTitle2($newTitle)
-    {
-        $this->title2 = $newTitle;
-    }
-
-    public function updateButtonText($newText)
-    {
-        $this->buttonText = $newText;
     }
 
     public function updateImageSrc($newImageSrc)
     {
         $this->imageSrc = $newImageSrc;
-    }
-
-    public function updateText($newText)
-    {
-        $this->text = $newText;
-    }
-
-    public function updateDays($newDays)
-    {
-        $this->days = $newDays;
-    }
-
-    public function updateHours($newHours)
-    {
-        $this->hours = $newHours;
-    }
-
-    public function updateMinutes($newMinutes)
-    {
-        $this->minutes = $newMinutes;
-    }
-
-    public function updateSeconds($newSeconds)
-    {
-        $this->seconds = $newSeconds;
     }
 
     public function updateImage()
@@ -87,5 +61,40 @@ class Footersection extends Component
         return $this->newImage
             ? $this->newImage->temporaryUrl()
             : asset('storage/' . $this->imageSrc);
+    }
+
+    public function saveChanges()
+    {
+        $this->saveComponentData();
+    }
+
+    public function saveComponentData()
+    {
+        $component = ModelsComponent::firstOrCreate([
+            'nombre' => 'footersection', 
+            'model_type' => 'App\Http\Livewire\Footersection', // Asegúrate de ajustar la ruta correcta
+        ]);
+        $invitation = Invitation::where('user_id', auth()->id())->latest()->first();
+        $invitationId = $invitation->id;
+        $this->componentData = [
+            'title1' => $this->title1,
+            'title2' => $this->title2,
+            'buttonText' => $this->buttonText,
+            'imageSrc' => $this->imageSrc,
+            'text' => $this->text,
+            'days' => $this->days,
+            'hours' => $this->hours,
+            'minutes' => $this->minutes,
+            'seconds' => $this->seconds,
+        ];
+        foreach ($this->componentData as $key => $body) {
+            ComponentData::create([
+                'key' => $key,
+                'value' => $body,
+                'invitation_id' => $invitationId,
+                'component_id' => $component->id,
+            ]);
+        }
+        return back();
     }
 }

@@ -32,7 +32,7 @@ Route::get('/footer', function () {
 Route::get('/index', [pageController::class, 'index'])->name('index');
 
 Route::get('/test', function () {
-    $id = 117;
+    $id = 1;
     $invitation = invitation::where('id', $id)->with(['invitationComponent'=>function($ivcom) use ($id){
         $ivcom->with(['component'=>function($com) use ($id){
             $com->with(['componentData'=>function($data) use ($id){
@@ -40,12 +40,7 @@ Route::get('/test', function () {
             }]);
         }]);
     }])->first();
-    // foreach ($invitation->invitationComponent as $invi){
-    //     $viewName = ('App\\resources\\views\\livewire\\'.$invi->component->nombre.'.blade.php');
-    //     $viewName = str_replace('\\', '/', $viewName);
-    //     echo json_encode($viewName);
-    // }
-    // echo json_encode($invitation);
+    echo json_encode($invitation);
     return view('test', compact('invitation'));
 });
 Auth::routes();

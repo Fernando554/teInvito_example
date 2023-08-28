@@ -39,16 +39,6 @@ class ContentSection extends Component
         return view('livewire.content-section');
     }
 
-    public function updateTitle($newTitle)
-    {
-        $this->title = $newTitle;
-    }
-
-    public function updateText($index, $newText)
-    {
-        $this->texts[$index] = $newText;
-    }
-
     public function updateImage($index)
     {
         // Verificamos si el usuario ha seleccionado una nueva imagen

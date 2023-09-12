@@ -93,6 +93,5 @@ class HeaderSection extends Component
             ]);
         }
 
-        return back();
     }
 }

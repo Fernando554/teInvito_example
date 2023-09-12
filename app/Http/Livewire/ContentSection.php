@@ -15,10 +15,10 @@ class ContentSection extends Component
     public $title;
     public $images;
     public $texts;
-    public $isEditing;
+    public $isEditing =  false;
     public $newImages = [];
 
-    public function mount()
+    public function mount($data = null)
     {
         $this->title = "Título en el Centro";
         $this->images = [
@@ -32,6 +32,17 @@ class ContentSection extends Component
             'Texto de la columna 3',
         ];
         $this->isEditing = array_fill(0, count($this->images), false);
+        if ($data) {
+            $this->isEditing = false;
+            $this->title = $data['title'];
+            $this->images[] = $data['image_0'];
+            $this->images[] = $data['image_1'];
+            $this->images[] = $data['image_2'];
+            $this->texts[] = $data['text_0'];
+            $this->texts[] = $data['text_1'];
+            $this->texts[] = $data['text_2'];
+
+        }
     }
 
     public function render()
@@ -47,7 +58,7 @@ class ContentSection extends Component
             $this->images[$index] = $this->newImages[$index]->store('public/images');
         }
     }
-    
+
     public function previewImage($index)
     {
         return isset($this->newImages[$index])

@@ -24,8 +24,6 @@
         <div class="mt-3">
             @if ($isEditing)
                 <button wire:click="saveChanges" class="btn btn-primary">Guardar</button>
-            @else
-                <button wire:click="toggleEditMode" class="btn btn-secondary">Editar</button>
             @endif
         </div>
     </div>

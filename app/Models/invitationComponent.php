@@ -24,6 +24,6 @@ class invitationComponent extends Model
 
     public function component()
     {
-        return $this->belongsTo(component::class);
+        return $this->belongsTo(Component::class);
     }
 }

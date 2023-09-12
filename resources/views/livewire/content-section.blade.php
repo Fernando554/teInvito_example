@@ -17,9 +17,11 @@
                     @endif
                     <div class="card-body">
                         @if ($isEditing)
-                            <input type="text" wire:model="texts.{{ $index }}" class="form-control">
+                        <div wire:ignore>
+                            <textarea id="body{{ $index }}" wire:model="texts.{{ $index }}" class="form-control"></textarea>
+                        </div>
                         @else
-                            <p>{{ $texts[$index] }}</p>
+                            <p>{!! $texts[$index] !!}</p>
                         @endif
                     </div>
                 </div>
@@ -32,3 +34,17 @@
         @endif
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        @foreach($images as $index => $image)
+            $('#body{{ $index }}').summernote({
+                callbacks: {
+                    onChange: function(contents, $editable) {
+                        @this.set("texts.{{ $index }}", contents);
+                    }
+                }
+            });
+        @endforeach
+    });
+</script>

@@ -11,9 +11,11 @@
                 </div>
                 <div class="card-body text-center text-wrap">
                     @if ($isEditing)
-                        <textarea wire:model="body" class="form-control"></textarea>
+                        <div wire:ignore>
+                            <textarea id="body" wire:model="body" class="form-control"></textarea>
+                        </div>
                     @else
-                        {{ $body }}
+                        {!! $body !!}
                     @endif
                     @if ($isEditing)
                         <input wire:model="link" class="form-control">
@@ -38,3 +40,15 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#body').summernote({
+            callbacks: {
+                onChange: function(contents, $editable) {
+                    @this.set('body', contents);
+                }
+            }
+        });
+    });
+</script>

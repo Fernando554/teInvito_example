@@ -14,7 +14,7 @@ class pageController extends Controller
 
     public function test()
     {
-        $id = 15;
+        $id = 17;
 
         $invitation = invitation::where('id', $id)->with(['invitationComponent'=>function($ivcom) use ($id){
             $ivcom->with(['component'=>function($com) use ($id){

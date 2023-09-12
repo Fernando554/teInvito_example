@@ -72,6 +72,8 @@ class HeaderSection extends Component
             $imageURL = str_replace(url('/'), '', $imageURL);
     
             $this->Image = $imageURL;
+        }else{
+            $this->Image = "https://picsum.photos/200/300";
         }
 
         $this->componentData = [

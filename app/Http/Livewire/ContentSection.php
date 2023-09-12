@@ -69,36 +69,35 @@ class ContentSection extends Component
 
     public function saveComponentData()
     {
-            // Guarda el componente o recupéralo si ya existe
+
         $component = ModelsComponent::firstOrCreate([
-            'nombre' => 'content-section', // Ajusta el nombre de tu componente
-            'model_type' => 'App\Http\Livewire\ContentSection', // Ajusta la ruta de tu componente
+            'nombre' => 'content-section', 
+            'model_type' => 'App\Http\Livewire\ContentSection', 
         ]);
         $invitation  = invitation::where('user_id', auth()->id())->latest()->first();
         $invitationId = $invitation->id;
         ComponentData::create([
-            'key' => 'title', // Clave para el título
-            'value' => $this->title, // Guarda el título
-            'invitation_id' => $invitationId, // Ajusta el ID de la invitación según tus necesidades
-            'component_id' => $component->id, // Asocia el componente
+            'key' => 'title', 
+            'value' => $this->title, 
+            'invitation_id' => $invitationId, 
+            'component_id' => $component->id, 
         ]);
 
-        // Guarda la información en la tabla 'component_data' para cada elemento en $images y $texts
         foreach ($this->images as $index => $image) {
             ComponentData::create([
-                'key' => "image_$index", // Define una clave única para cada imagen
-                'value' => $image, // Guarda la ruta de la imagen
-                'invitation_id' => $invitationId, // Ajusta el ID de la invitación según tus necesidades
-                'component_id' => $component->id, // Asocia el componente
+                'key' => "image_$index", 
+                'value' => $image, 
+                'invitation_id' => $invitationId, 
+                'component_id' => $component->id, 
             ]);
         }
 
         foreach ($this->texts as $index => $text) {
             ComponentData::create([
-                'key' => "text_$index", // Define una clave única para cada texto
-                'value' => $text, // Guarda el texto
-                'invitation_id' => $invitationId, // Ajusta el ID de la invitación según tus necesidades
-                'component_id' => $component->id, // Asocia el componente
+                'key' => "text_$index", 
+                'value' => $text, 
+                'invitation_id' => $invitationId, 
+                'component_id' => $component->id, 
             ]);
         }
         // Regresa a la página anterior después de guardar

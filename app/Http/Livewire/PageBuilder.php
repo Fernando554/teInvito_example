@@ -52,11 +52,10 @@ class PageBuilder extends Component
     
                 $componentInstance = new $componentClassName();
     
-                // 8. Agrega el componente a la tabla 'invitations_components' con el 'order'
                 $order = $index + 1; 
                 InvitationComponent::create([
                     'invitation_id' => $invitation->id,
-                    'component_id' => $componentRecord->id, // Utiliza el ID del registro
+                    'component_id' => $componentRecord->id, 
                     'order' => $order,
                 ]);
             }

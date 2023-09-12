@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class component extends Model
+class Component extends Model
 {
     use HasFactory;
 
@@ -21,4 +21,15 @@ class component extends Model
         return $this->hasMany(componentData::class);
     }
 
+    /**
+     * @return array
+     */
+    public function componentDataOrder()
+    {
+        $componentDataOrder = [];
+        foreach ($this->componentData as  $value) {
+            $componentDataOrder[$value->key] = $value->value;
+        }
+        return $componentDataOrder;
+    }
 }

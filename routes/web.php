@@ -32,16 +32,17 @@ Route::get('/footer', function () {
 Route::get('/index', [pageController::class, 'index'])->name('index');
 
 Route::get('/test', function () {
-    $id = 1;
+    $id = 118;
+
     $invitation = invitation::where('id', $id)->with(['invitationComponent'=>function($ivcom) use ($id){
         $ivcom->with(['component'=>function($com) use ($id){
             $com->with(['componentData'=>function($data) use ($id){
                 $data->where('invitation_id', $id);
             }]);
-        }]);
+        }])->orderBy('order', 'asc');//  orderBy invitation order
     }])->first();
-    echo json_encode($invitation);
-    return view('test', compact('invitation'));
+//echo json_encode($invitation->invitationComponent[1]->component->componentDataOrder());
+    return view('test', ['invitation'=>$invitation]);
 });
 Auth::routes();
 

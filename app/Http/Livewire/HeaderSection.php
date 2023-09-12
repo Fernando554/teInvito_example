@@ -12,13 +12,19 @@ class HeaderSection extends Component
     public $title;
     public $body;
     public $isEditing = true;
-    
-    
 
-    public function mount()
+
+
+    public function mount($data = null)
     {
         $this->title = "Título";
         $this->body = "Contenido actual del encabezado";
+
+        if ($data) {
+            $this->title =  $data['title'];
+            $this->body = $data['body'];
+            $this->isEditing = false;
+        }
     }
 
     public function render()
@@ -39,7 +45,7 @@ class HeaderSection extends Component
     public function saveComponentData()
     {
         $component = ModelsComponent::firstOrCreate([
-            'nombre' => 'header-section', 
+            'nombre' => 'header-section',
             'model_type' => 'App\Http\Livewire\HeaderSection', // Asegúrate de ajustar la ruta correcta
         ]);
         //se buscara la ultima invitacion creada por el usuario

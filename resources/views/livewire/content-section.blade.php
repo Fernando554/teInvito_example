@@ -9,12 +9,10 @@
                     <img src="{{ $this->previewImage($index) }}" class="card-img-top w-200 h-200" alt="Imagen {{ $index + 1 }}">
                     <div class="card-body">
                         <input type="text" wire:model="texts.{{ $index }}" class="form-control">
-                        @if ($isEditing[$index])
+                        @if ($isEditing)
                             <input type="file" wire:model="newImages.{{ $index }}">
                         @endif
-                        <button wire:click="toggleEdit({{ $index }})" class="btn btn-primary">
-                            {{ $isEditing[$index] ? 'Terminar edicion' : 'Editar Imagen' }}
-                        </button>
+
                     </div>
                 </div>
             </div>

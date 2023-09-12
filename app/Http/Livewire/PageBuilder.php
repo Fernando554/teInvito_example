@@ -85,17 +85,13 @@ class PageBuilder extends Component
     
         foreach ($this->selectedComponents as $index => $componentData) {
             $componentName = $componentData['component'];
-            $componentRecord = ModelsComponent::where('nombre', $componentName)->first();
+            $componentRecord = ModelsComponent::where('name', $componentName)->first();
             if ($componentRecord) {
                 $componentClassName = $componentRecord->model_type;
-    
-                $componentInstance = new $componentClassName();
-    
-                // 8. Agrega el componente a la tabla 'invitations_components' con el 'order'
                 $order = $index + 1; 
                 InvitationComponent::create([
                     'invitation_id' => $invitation->id,
-                    'component_id' => $componentRecord->id, // Utiliza el ID del registro
+                    'component_id' => $componentRecord->id, 
                     'order' => $order,
                 ]);
             }

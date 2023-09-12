@@ -1,14 +1,7 @@
-@if ($invitation->invitationComponent)
-    @foreach ($invitation->invitationComponent as $invi)
-        <div>
-            <h1>{{ $invi->component->model_type }}</h1>
-            @foreach ($invi->component->componentData as $data)
-                <div>
-                    <p>{{ $data->value }}</p>
-                </div>
-            @endforeach
-        </div>
+@extends('layouts.view')
+@section('content')
+    @foreach($invitation->invitationComponent as $component)
+       @livewire($component->component->model_type, ['data' => $component->component->componentDataOrder()])
     @endforeach
-@else
-    <p>No hay datos en la relación invitation_component.</p>
-@endif
+    @livewireScripts
+@endsection

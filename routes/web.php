@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\pageController;
+use App\Http\Livewire\ContentSection;
 use App\Http\Livewire\HeaderSection;
 use App\Models\invitation;
 use Illuminate\Support\Facades\Route;
@@ -21,28 +22,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/content', function () {
-    return view('content');
-});
+// Route::get('/content', function () {
+//     return view('content');
+// });
 
 Route::get('/footer', function () {
     return view('footer');
 });
 
+Route::get('/content-section', [ContentSection::class, 'render'])->name('livewire.content-section');
+
 Route::get('/index', [pageController::class, 'index'])->name('index');
 
-Route::get('/test', function () {
-    $id = 1;
-    $invitation = invitation::where('id', $id)->with(['invitationComponent'=>function($ivcom) use ($id){
-        $ivcom->with(['component'=>function($com) use ($id){
-            $com->with(['componentData'=>function($data) use ($id){
-                $data->where('invitation_id', $id);
-            }]);
-        }]);
-    }])->first();
-    echo json_encode($invitation);
-    return view('test', compact('invitation'));
-});
+Route::get('/test', [pageController::class, 'test'])->name('test');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

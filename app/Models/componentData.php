@@ -9,7 +9,7 @@ class componentData extends Model
 {
     use HasFactory;
 
-    protected $table = 'data_components';
+    protected $table = 'componentdatas';
 
     protected $fillable = [
         'key',
@@ -20,11 +20,12 @@ class componentData extends Model
 
     public function component()
     {
-        return $this->belongsTo(component::class);
+        return $this->belongsTo(Component::class);
     }
 
     public function invitation()
     {
         return $this->belongsTo(invitation::class);
     }
+
 }

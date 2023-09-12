@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('componentdatas', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('invitation_id');
+            $table->bigInteger('component_id');
+            $table->string('key');
+            $table->string('value');
             $table->timestamps();
         });
     }

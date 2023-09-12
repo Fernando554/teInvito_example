@@ -9,7 +9,6 @@ class invitationComponent extends Model
 {
     use HasFactory;
 
-    protected $table = 'invitations_components';
 
     protected $fillable = [
         'invitation_id',
@@ -24,6 +23,6 @@ class invitationComponent extends Model
 
     public function component()
     {
-        return $this->belongsTo(component::class);
+        return $this->belongsTo(Component::class);
     }
 }

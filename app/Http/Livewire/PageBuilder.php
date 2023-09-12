@@ -7,11 +7,14 @@ use Livewire\Component;
 use Livewire\Livewire;
 use App\Models\invitation;
 use App\Models\invitationComponent;
+use App\Models\componentData;
 use App\Models\component as ModelsComponent;
 use App\Http\Livewire\HeaderSection;
 
 class PageBuilder extends Component
 {
+    public $title;
+    public $body;
     public $selectedComponents = [];
     public $availableComponents = [
         'header-section' => 'Encabezado',
@@ -20,6 +23,12 @@ class PageBuilder extends Component
         'slide-section' => 'Slider',
     ];
     public $componentChangesSaved = [];
+
+    public function mount()
+    {
+        $this->title = "Título";
+        $this->body = "Contenido actual del encabezado";
+    }
     public function render()
     {
         return view('livewire.page-builder');
@@ -36,6 +45,36 @@ class PageBuilder extends Component
     public function updateComponent($index, $props)
     {
         $this->selectedComponents[$index]['props'] = $props;
+    }
+
+    public function saveComponentData()
+    {
+        $component = ModelsComponent::firstOrCreate([
+            'nombre' => 'header-section', 
+            'model_type' => 'App\Http\Livewire\HeaderSection', // Asegúrate de ajustar la ruta correcta
+        ]);
+        //se buscara la ultima invitacion creada por el usuario
+        $invitation = Invitation::where('user_id', auth()->id())->latest()->first();
+        $invitationId = $invitation->id;
+        $this->componentData = [
+            'title' => $this->title,
+            'body' => $this->body,
+        ];
+        // Luego, guarda la información en la tabla 'component_data'
+        foreach ($this->componentData as $key => $body) {
+            ComponentData::create([
+                'key' => $key,
+                'value' => $body,
+                'invitation_id' => $invitationId,
+                'component_id' => $component->id,
+            ]);
+        }
+
+    }
+
+    public function saveChanges()
+    {
+        $this->saveComponentData();
     }
     
     public function save()
@@ -61,10 +100,9 @@ class PageBuilder extends Component
                 ]);
             }
         }
-    
-        return back();
-    }
 
+        $this->saveChanges();
+    }
     //remover el ultimo componente que se agrego
     public function removeComponent($index)
     {

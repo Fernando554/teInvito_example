@@ -1,24 +1,32 @@
-<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-    <!-- Imágenes de fondo -->
-    <div class="carousel-inner">
-        <!-- Primera diapositiva -->
-        <div class="carousel-item active">
-            <img src="https://elcomercio.pe/resizer/gj5JbwxkmqRAa4HSpfOHEIUBf7k=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/6FUBT6XQXNHHNFOMCHIT7I34NA.jpg" class="d-block w-100" alt="Imagen 1">
-            <div class="carousel-caption">
-               <input wire:model="title" class="form-control">
-                <textarea wire:model="content" class="form-control"></textarea>
-                <textarea wire:model="subcontent" class="form-control"></textarea>
-                <button wire:click="saveChanges" class="btn btn-primary">Guardar</button>
+<!-- Slider main container -->
+<div class="swiper">
+    <div>
+        <input type="text" name="" id="">
+    </div>
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <div class="slide-container">
+                <img src='https://cdn.pixabay.com/photo/2016/05/24/16/48/mountains-1412683_1280.png' alt=''>
             </div>
         </div>
-        <!-- Agrega más diapositivas según sea necesario -->
+        <div class="swiper-slide">
+            <div class="slide-container">
+                <img src="https://cdn.pixabay.com/photo/2018/05/30/00/24/thunderstorm-3440450_640.jpg" alt="">
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="slide-container">
+                <img src="https://cdn.pixabay.com/photo/2018/02/02/17/29/nature-3125912_640.jpg" alt="">
+            </div>
+        </div>
     </div>
-    <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExample" role="button" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </a>
+        <!-- If we need pagination -->
+    <div class="swiper-pagination"></div>
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
+    <!-- If we need scrollbar -->
+    <div class="swiper-scrollbar"></div>
 </div>

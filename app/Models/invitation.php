@@ -9,7 +9,6 @@ class invitation extends Model
 {
     use HasFactory;
 
-    protected $table = 'invitation';
 
     protected $fillable = [
         'user_id',

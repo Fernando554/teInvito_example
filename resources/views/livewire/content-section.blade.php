@@ -1,24 +1,34 @@
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="row">
         <div class="col-md-12">
-            <input type="text" wire:model="title" class="form-control justify-content-center text-center">
+            @if ($isEditing)
+                <input wire:model="title" class="form-control justify-content-center text-center">
+            @else
+                <h2 class="text-center">{{ $title }}</h2>
+            @endif
         </div>
         @foreach($images as $index => $image)
             <div class="col-md-4">
                 <div class="card text-center">
-                    <img src="{{ $this->previewImage($index) }}" class="card-img-top w-200 h-200" alt="Imagen {{ $index + 1 }}">
+                    @if ($isEditing || isset($newImages[$index]))
+                        <input type="file" wire:model="newImages.{{ $index }}">
+                    @else
+                    <img src="{{ asset($image) }}" class="card-img-top">
+                    @endif
                     <div class="card-body">
-                        <input type="text" wire:model="texts.{{ $index }}" class="form-control">
                         @if ($isEditing)
-                            <input type="file" wire:model="newImages.{{ $index }}">
+                            <input type="text" wire:model="texts.{{ $index }}" class="form-control">
+                        @else
+                            <p>{{ $texts[$index] }}</p>
                         @endif
-
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
     <div class="mt-3">
+        @if ($isEditing)
             <button wire:click="saveChanges" class="btn btn-primary">Guardar</button>
+        @endif
     </div>
 </div>

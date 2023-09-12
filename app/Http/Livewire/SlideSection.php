@@ -40,7 +40,7 @@ class SlideSection extends Component
     public function saveComponentData()
     {
         $component = ModelsComponent::firstOrCreate([
-            'nombre' => 'slide-section', 
+            'name' => 'slide-section', 
             'model_type' => 'App\Http\Livewire\SlideSection', // Asegúrate de ajustar la ruta correcta
         ]);
         //se buscara la ultima invitacion creada por el usuario

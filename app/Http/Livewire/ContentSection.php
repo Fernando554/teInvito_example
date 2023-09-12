@@ -15,7 +15,7 @@ class ContentSection extends Component
     public $title;
     public $images;
     public $texts;
-    public $isEditing =  false;
+    public $isEditing = true;
     public $newImages = [];
 
     public function mount($data = null)
@@ -31,17 +31,17 @@ class ContentSection extends Component
             'Texto de la columna 2',
             'Texto de la columna 3',
         ];
-        $this->isEditing = array_fill(0, count($this->images), false);
-        if ($data) {
-            $this->isEditing = false;
-            $this->title = $data['title'];
-            $this->images[] = $data['image_0'];
-            $this->images[] = $data['image_1'];
-            $this->images[] = $data['image_2'];
-            $this->texts[] = $data['text_0'];
-            $this->texts[] = $data['text_1'];
-            $this->texts[] = $data['text_2'];
 
+        // Si se proporcionan datos en $data, sobrescribe solo los primeros 3 elementos.
+        if ($data) {
+            $this->title = $data['title'];
+            $this->images[0] = $data['image_0'];
+            $this->images[1] = $data['image_1'];
+            $this->images[2] = $data['image_2'];
+            $this->texts[0] = $data['text_0'];
+            $this->texts[1] = $data['text_1'];
+            $this->texts[2] = $data['text_2'];
+            $this->isEditing = false;
         }
     }
 
@@ -68,9 +68,7 @@ class ContentSection extends Component
 
     public function toggleEdit($index)
     {
-        if (array_key_exists($index, $this->isEditing)) {
-            $this->isEditing[$index] = !$this->isEditing[$index];
-        }
+        $this->isEditing = !$this->isEditing;
     }
 
     public function saveChanges()
@@ -78,15 +76,30 @@ class ContentSection extends Component
         $this->saveComponentData();
     }
 
+    public function addImage()
+    {
+        $this->newImages[] = null;
+    }
+
     public function saveComponentData()
     {
 
         $component = ModelsComponent::firstOrCreate([
-            'nombre' => 'content-section', 
-            'model_type' => 'App\Http\Livewire\ContentSection', 
+            'name' => 'content-section', 
+            'model_type' => 'content-section', 
         ]);
         $invitation  = invitation::where('user_id', auth()->id())->latest()->first();
         $invitationId = $invitation->id;
+
+        foreach ($this->newImages as $index => $newImage) {
+            if ($newImage) {
+                $imagePath = $newImage->store('images');
+                $imageURL = asset('storage/' . $imagePath);
+                $imageURL = str_replace(url('/'), '', $imageURL);
+                $this->images[$index] = $imageURL;
+            }
+        }
+
         ComponentData::create([
             'key' => 'title', 
             'value' => $this->title, 
@@ -97,7 +110,7 @@ class ContentSection extends Component
         foreach ($this->images as $index => $image) {
             ComponentData::create([
                 'key' => "image_$index", 
-                'value' => $image, 
+                'value' => $image,
                 'invitation_id' => $invitationId, 
                 'component_id' => $component->id, 
             ]);

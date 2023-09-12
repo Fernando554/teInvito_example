@@ -9,7 +9,6 @@ class invitationComponent extends Model
 {
     use HasFactory;
 
-    protected $table = 'invitations_components';
 
     protected $fillable = [
         'invitation_id',

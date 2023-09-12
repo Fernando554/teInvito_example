@@ -9,7 +9,7 @@ class componentData extends Model
 {
     use HasFactory;
 
-    protected $table = 'data_components';
+    protected $table = 'componentdatas';
 
     protected $fillable = [
         'key',

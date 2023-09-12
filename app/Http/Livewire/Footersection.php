@@ -71,7 +71,7 @@ class Footersection extends Component
     public function saveComponentData()
     {
         $component = ModelsComponent::firstOrCreate([
-            'nombre' => 'footersection', 
+            'name' => 'footersection', 
             'model_type' => 'App\Http\Livewire\Footersection', // Asegúrate de ajustar la ruta correcta
         ]);
         $invitation = Invitation::where('user_id', auth()->id())->latest()->first();

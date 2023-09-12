@@ -14,17 +14,15 @@ class pageController extends Controller
 
     public function test()
     {
-        $id = 123;
+        $id = 15;
+
         $invitation = invitation::where('id', $id)->with(['invitationComponent'=>function($ivcom) use ($id){
             $ivcom->with(['component'=>function($com) use ($id){
                 $com->with(['componentData'=>function($data) use ($id){
                     $data->where('invitation_id', $id);
                 }]);
-            }]);
+            }])->orderBy('order', 'asc');//  orderBy invitation order
         }])->first();
-
-        // echo json_encode($invitation);
-
-        return view('test', compact('invitation'));
+        return view('test', ['invitation'=>$invitation]);
     }
 }

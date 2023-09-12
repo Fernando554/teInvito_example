@@ -15,11 +15,21 @@
                     @else
                         {{ $body }}
                     @endif
+                    @if ($isEditing)
+                        <input wire:model="link" class="form-control">
+                        <input wire:model="linkText" class="form-control">
+                    @else
+                    <a href="{{$link}}" class="btn btn-primary">{{ $linkText }}</a>
+                    @endif
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <img src="https://assets.xboxservices.com/assets/e4/30/e4304c2b-0e62-4e66-8c17-dfaabeb96b44.jpg?n=224099_Super-Hero-1400_Hero_1920x1080.jpg" alt="Imagen" class="img-fluid" style="max-width: 400px; height: 400px;">
+            @if ($isEditing)
+                <input type="file" wire:model="Image">
+            @else
+            <img src="{{asset('/storage' . $Image)}}" alt="Imagen" class="img-fluid" style="max-width: 400px; height: 400px;">
+            @endif
         </div>
         <div class="mt-3">
             @if ($isEditing)

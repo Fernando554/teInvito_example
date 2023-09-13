@@ -14,5 +14,5 @@
             <button wire:click="removeComponent({{ $index }})" class="btn btn-danger">Reset</button>
         @endforeach
     </div>
-    <button wire:click="save" class="btn btn-primary">Guardar</button>
+    <button wire:click="saveAll" class="btn btn-primary">Guardar</button>
 </div>

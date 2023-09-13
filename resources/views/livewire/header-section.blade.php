@@ -33,11 +33,6 @@
             <img src="{{asset('/storage/app/public/' . $Image)}}" alt="Imagen" class="img-fluid" style="max-width: 400px; height: 400px;">
             @endif
         </div>
-        <div class="mt-3">
-            @if ($isEditing)
-                <button wire:click="saveChanges" class="btn btn-primary">Guardar</button>
-            @endif
-        </div>
     </div>
 </div>
 

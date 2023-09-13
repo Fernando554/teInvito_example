@@ -12,9 +12,14 @@ class pageController extends Controller
         return view('index');
     }
 
+    public function create()
+    {
+        return view('create');
+    }
+
     public function test()
     {
-        $id = 17;
+        $id = 22;
 
         $invitation = invitation::where('id', $id)->with(['invitationComponent'=>function($ivcom) use ($id){
             $ivcom->with(['component'=>function($com) use ($id){

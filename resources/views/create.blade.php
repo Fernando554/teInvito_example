@@ -1,6 +1,6 @@
 @extends('layouts.view')
 @section('content')
-    @livewire('page-builder-index')
+    @livewire('page-builder')
     @livewireScripts
 @endsection
 @section('scripts')

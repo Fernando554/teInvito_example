@@ -50,7 +50,7 @@ class PageBuilder extends Component
     public function saveComponentData()
     {
         $component = ModelsComponent::firstOrCreate([
-            'nombre' => 'header-section', 
+            'name' => 'header-section', 
             'model_type' => 'App\Http\Livewire\HeaderSection', // Asegúrate de ajustar la ruta correcta
         ]);
         //se buscara la ultima invitacion creada por el usuario

@@ -11,6 +11,7 @@ use App\Models\invitation;
 class Footersection extends Component
 {
     use WithFileUploads;
+
     public $title1 = "Título 1";
     public $title2 = "Título 2";
     public $buttonText = "Suscríbete";
@@ -21,21 +22,32 @@ class Footersection extends Component
     public $minutes = '00';
     public $seconds = '00';
     public $editing = true;
-    public $newImage;
+    public $newImage = [];
+    public $isEditing = true;
+    public $componentId;
+    protected $listeners = ['saveComponents' => 'saveComponentData'];
 
 
-    public function mount()
+
+    public function mount($data = null, $id = null)
     {
-        $this->title1 = "Título 1";
-        $this->title2 = "Título 2";
-        $this->buttonText = "Suscríbete";
-        $this->imageSrc = "https://picsum.photos/200/300";
-        $this->text = "Texto descriptivo.";
-        $this->days = '00';
-        $this->hours = '00';
-        $this->minutes = '00';
-        $this->seconds = '00';
-        $this->editing = true;
+        // Si se proporcionan datos en $data, sobrescribe solo los primeros 3 elementos.
+        if ($data) {
+            $this->title1 = $data['title1'];
+            $this->title2 = $data['title2'];
+            $this->buttonText = $data['buttonText'];
+            $this->imageSrc = $data['imageSrc'];
+            $this->text = $data['text'];
+            $this->days = $data['days'];
+            $this->hours = $data['hours'];
+            $this->minutes = $data['minutes'];
+            $this->seconds = $data['seconds'];
+            $this->editing = false;
+        }
+
+        if ($id) {
+            $this->componentId = $id;
+        }
     }
 
     public function render()
@@ -48,19 +60,25 @@ class Footersection extends Component
         $this->imageSrc = $newImageSrc;
     }
 
-    public function updateImage()
+    public function updateImage($index)
     {
-        if ($this->newImage) {
-            // Guardar la nueva imagen en el servidor y actualizar la ruta en $imageSrc
-            $this->imageSrc = $this->newImage->store('public/images');
+        // Verificamos si el usuario ha seleccionado una nueva imagen
+        if (isset($this->newImage[$index])) {
+            // Guardamos la nueva imagen en el servidor y actualizamos la ruta en $images
+            $this->imageSrc[$index] = $this->newImage[$index]->store('public/images');
         }
     }
     
-    public function previewImage()
+    public function previewImage($index)
     {
-        return $this->newImage
-            ? $this->newImage->temporaryUrl()
-            : asset('storage/' . $this->imageSrc);
+        return isset($this->newImage[$index])
+            ? $this->newImage[$index]->temporaryUrl()
+            : asset('storage/' . $this->imageSrc[$index]);
+    }
+
+    public function toggleEdit($index)
+    {
+        $this->isEditing = !$this->isEditing;
     }
 
     public function saveChanges()
@@ -68,11 +86,16 @@ class Footersection extends Component
         $this->saveComponentData();
     }
 
+    public function addImage()
+    {
+        $this->newImages[] = null;
+    }
+
     public function saveComponentData()
     {
         $component = ModelsComponent::firstOrCreate([
-            'name' => 'footersection', 
-            'model_type' => 'App\Http\Livewire\Footersection', // Asegúrate de ajustar la ruta correcta
+            'name' => 'footer-section', 
+            'model_type' => 'footer-section', // Asegúrate de ajustar la ruta correcta
         ]);
         $invitation = Invitation::where('user_id', auth()->id())->latest()->first();
         $invitationId = $invitation->id;
@@ -95,6 +118,7 @@ class Footersection extends Component
                 'component_id' => $component->id,
             ]);
         }
+
         return back();
     }
 }

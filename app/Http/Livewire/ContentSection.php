@@ -17,6 +17,7 @@ class ContentSection extends Component
     public $texts;
     public $isEditing = true;
     public $newImages = [];
+    protected $listeners = ['saveComponents' => 'saveContentSection'];
 
     public function mount($data = null)
     {
@@ -71,7 +72,7 @@ class ContentSection extends Component
         $this->isEditing = !$this->isEditing;
     }
 
-    public function saveChanges()
+    public function saveContentSection()
     {
         $this->saveComponentData();
     }
@@ -124,7 +125,5 @@ class ContentSection extends Component
                 'component_id' => $component->id, 
             ]);
         }
-        // Regresa a la página anterior después de guardar
-        return back();
     }
 }

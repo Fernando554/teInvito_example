@@ -28,11 +28,6 @@
             </div>
         @endforeach
     </div>
-    <div class="mt-3">
-        @if ($isEditing)
-            <button wire:click="saveChanges" class="btn btn-primary">Guardar</button>
-        @endif
-    </div>
 </div>
 
 <script>

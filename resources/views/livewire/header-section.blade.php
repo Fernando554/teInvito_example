@@ -30,7 +30,7 @@
             @if ($isEditing)
                 <input type="file" wire:model="Image">
             @else
-            <img src="{{asset('/storage' . $Image)}}" alt="Imagen" class="img-fluid" style="max-width: 400px; height: 400px;">
+            <img src="{{asset('/storage/app/public/' . $Image)}}" alt="Imagen" class="img-fluid" style="max-width: 400px; height: 400px;">
             @endif
         </div>
     </div>

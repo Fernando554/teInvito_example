@@ -67,12 +67,12 @@ class HeaderSection extends Component
 
         if ($this->Image) {
             $imagePath = $this->Image->store('public/images');
-            $imageURL = asset('storage/' . $imagePath);
+            // $imageURL = asset('storage/' . $imagePath);
     
-            // Quita la parte del servidor local de la URL
-            $imageURL = str_replace(url('/'), '', $imageURL);
+            // // Quita la parte del servidor local de la URL
+            // $imageURL = str_replace(url('/'), '', $imageURL);
     
-            $this->Image = $imageURL;
+            $this->Image = $imagePath;
         }else{
             $this->Image = "https://picsum.photos/200/300";
         }

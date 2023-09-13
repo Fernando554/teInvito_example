@@ -34,6 +34,8 @@ Route::get('/content-section', [ContentSection::class, 'render'])->name('livewir
 
 Route::get('/index', [pageController::class, 'index'])->name('index');
 
+Route::get('/create', [pageController::class, 'create'])->name('create');
+
 Route::get('/test', [pageController::class, 'test'])->name('test');
 
 Auth::routes();

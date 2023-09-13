@@ -18,6 +18,7 @@ class HeaderSection extends Component
     public $linkText;
     public $Image;
     public $isEditing = true;
+    protected $listeners = ['saveComponents' => 'saveHeaderSection'];
 
 
 
@@ -49,7 +50,7 @@ class HeaderSection extends Component
         $this->isEditing = !$this->isEditing;
     }
 
-    public function saveChanges()
+    public function saveHeaderSection()
     {
         $this->saveComponentData();
     }

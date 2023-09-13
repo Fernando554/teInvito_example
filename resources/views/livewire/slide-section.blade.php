@@ -1,4 +1,33 @@
 <!-- Slider main container -->
+<link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+    />
+<style>
+        body {
+            margin: 0;
+        }
+        .swiper {
+        width: 100%;
+        height: 300px;
+        }
+
+        img {
+            width: 100%;
+            object-fit: cover;
+        }
+        label {
+            color: black;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            text-align: center;
+            align-items: center;
+
+        }
+</style>
 <div class="swiper">
     <div>
         <input type="text" name="" id="">
@@ -30,3 +59,27 @@
     <!-- If we need scrollbar -->
     <div class="swiper-scrollbar"></div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script>
+     const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+        },
+
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+
+        // And if we need scrollbar
+        scrollbar: {
+            el: '.swiper-scrollbar',
+        },
+        });
+</script>
